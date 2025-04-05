@@ -45,9 +45,9 @@
                 <version>3.1.0</version>
                 <configuration>
                     <mainClass>com.example.LettuceDeadlockDemo</mainClass>
-                    <daemonThreadJoinTimeout>0</daemonThreadJoinTimeout>
+                    <daemonThreadJoinTimeout>5</daemonThreadJoinTimeout>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-</project> 
+</project>
