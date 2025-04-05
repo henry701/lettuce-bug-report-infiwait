@@ -15,6 +15,7 @@ import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -25,12 +26,10 @@ public class LettuceDeadlockDemo {
     public static void main(String[] args) {
         logger.info("Starting Lettuce Deadlock Demonstration");
         try {
-            List<RedisURI> redisURIs = Arrays.asList(
-                    // Valid URI (although it points to a non-existent server)
-                    RedisURI.create("localhost", 6379),
-                    // Invalid URI with unparseable port - this will cause the deadlock
-                    RedisURI.create("redis://localhost:$(INVALID_DATA):CONFIG")
-            );
+            List<RedisURI> redisURIs = Collections.singletonList(
+					// Invalid URI with unparseable port - this will cause the deadlock
+					RedisURI.create("redis://localhost:$(INVALID_DATA):CONFIG")
+			);
             // Configure client with custom resources that use our problematic socket address resolver
             ClientResources clientResources = ClientResources.builder()
                     .socketAddressResolver(new ProblematicSocketAddressResolver())
